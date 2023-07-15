@@ -1,3 +1,7 @@
+/*https://www.youtube.com/watch?v=2Fb0kPngzMw&list=PLDdcY4olLQk066ysRibhoGd3UzGr0XSQG&index=26&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+
+https://www.geeksforgeeks.org/number-of-triangles-in-directed-and-undirected-graphs/
+*/
 #include <iostream>
 
 using namespace std;
