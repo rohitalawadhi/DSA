@@ -1,0 +1,36 @@
+/*
+https://leetcode.com/problems/water-and-jug-problem/submissions/
+
+https://www.youtube.com/watch?v=IZDyxrna9TA&ab_channel=NikhilJain
+*/
+class Solution {
+public:
+    bool canMeasureWater(int jug1Capacity, int jug2Capacity, int targetCapacity) {
+        int x = jug1Capacity;
+        int y =  jug2Capacity;
+        int z = targetCapacity;
+        if(x + y < z)
+            return false;
+        vector<int> directions = {x, -x, y, -y};
+        set<int> visited;
+        queue<int> q;
+        visited.insert(0);
+        q.push(0);
+        while(!q.empty()){
+            int curr = q.front();
+            q.pop();
+            for(int direction:directions){
+                int total = curr + direction;
+                if(total == z)  
+                    return true;
+                if(total < 0 or total > x + y)
+                    continue;
+                if(visited.find(total) == visited.end()){
+                    q.push(total);
+                    visited.insert(total);
+                }
+            }
+        }
+        return false;
+    }
+};
