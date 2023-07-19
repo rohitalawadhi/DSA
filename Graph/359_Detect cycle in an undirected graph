@@ -1,0 +1,41 @@
+
+/*
+
+https://www.youtube.com/watch?v=6PSczvPWGak&list=PLDdcY4olLQk066ysRibhoGd3UzGr0XSQG&index=5&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+
+https://practice.geeksforgeeks.org/problems/detect-cycle-in-an-undirected-graph/1
+
+*/
+
+
+class Solution {
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool dfs(int src, int par, vector<int> adj[], vector<bool> &vis){
+        vis[src] = 1;
+        
+        for(auto x:adj[src]){
+            if(!vis[x]){
+                bool conf = dfs(x, src, adj, vis);
+                if(conf)
+                    return true;
+            }
+            else if(x != par)
+                return true;
+        }
+        return false;
+    }
+    bool isCycle(int V, vector<int> adj[]) {
+        vector<bool> vis(V,false);
+        
+        for(int i = 0; i < V; i++)
+        {
+            if(!vis[i]){
+                bool c = dfs(i, -1, adj, vis);
+                if(c)
+                    return true;
+            }
+        }
+        return false;
+    }
+};
