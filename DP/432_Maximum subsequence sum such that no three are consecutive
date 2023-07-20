@@ -1,0 +1,34 @@
+
+/*
+https://www.youtube.com/watch?v=-FJinY9Yb-s&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+https://www.geeksforgeeks.org/maximum-subsequence-sum-such-that-no-three-are-consecutive/#practice
+
+*/
+
+class Solution{
+  public:
+  int dp[10000];
+  int func(int n, vector<int>& a){
+      if(n == -1)
+        return 0;
+      if(n == 0)
+        return a[0];
+      if(n == 1)
+        return a[0] + a[1];
+    
+     if(dp[n] != -1)
+        return dp[n];
+    
+      return dp[n] = max( max( func(n - 1, a) ,
+                                a[n] + func(n - 2, a),
+                                a[n] + a[n - 1] + func(n - 3, a) )
+                        );
+        
+  }
+  
+  int findMaxSum(vector<int>& a){
+    memset(dp, -1, sizeof(dp));
+    int n = a.size();
+    func(n - 1, a);
+  }
+};
