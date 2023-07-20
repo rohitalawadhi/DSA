@@ -1,0 +1,42 @@
+/*
+
+https://www.youtube.com/watch?v=skf0qDzSJsQ&list=PLDdcY4olLQk3Z2Gyo3-VN8gvi7DRKK-YY&index=31&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+https://practice.geeksforgeeks.org/problems/minimum-cost-to-fill-given-weight-in-a-bag1956/1
+*/
+
+
+class Solution{
+	public:
+	int dp[1001][1001];
+	int func(int a[], int n, int w)
+	{
+	    if(n == -1 and w == 0){
+	        return 0;
+	    }
+	    
+	    if(n == -1){
+	        return 1e9;
+	    }
+	    
+	    if(w == 0){
+	        return 0;
+	    }
+	    
+	    if(dp[n][w] != -1){
+	        return dp[n][w];
+	    }
+	    if((n + 1) > w or a[n] == -1)
+	        return dp[n][w] = func(a, n - 1, w);
+	        
+        return dp[n][w] = min( func(a, n - 1, w), a[n] + func(a, n, w - (n + 1) ) );
+	}
+	
+	int minimumCost(int a[], int n, int w) 
+	{ 
+        memset(dp, -1, sizeof(dp));
+        int x = func(a, n - 1, w);
+        if(x >= 1e9)
+            return -1;
+        return x;
+	} 
+};
