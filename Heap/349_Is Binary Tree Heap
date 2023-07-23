@@ -1,0 +1,39 @@
+/*
+
+https://practice.geeksforgeeks.org/problems/is-binary-tree-heap/1
+
+https://www.youtube.com/watch?v=IImt52DavrI&ab_channel=GeeksforGeeksPractice
+*/
+
+class Solution {
+  public:
+    bool isHeap(struct Node* tree) {
+        if(tree == NULL)
+            return true;
+        queue<Node*> q;
+        q.push(tree);
+        bool flag = false;
+        while(!q.empty())
+        {
+            Node* curr = q.front();
+            q.pop();
+            if(curr->left){
+                if(flag || curr->left->data > curr->data)
+                    return false;
+                q.push(curr->left);
+            }
+            else
+                flag = true;
+                
+            if(curr->right){
+                if(flag || curr->right->data > curr->data)
+                    return false;
+                q.push(curr->right);
+            }
+            else 
+                flag = true;
+        }
+        return true;
+    }
+};
+
