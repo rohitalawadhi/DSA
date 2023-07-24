@@ -1,0 +1,32 @@
+/*
+https://www.youtube.com/watch?v=zWYmcwFWp1M&ab_channel=GeeksforGeeksPractice
+https://practice.geeksforgeeks.org/problems/bst-to-max-heap/1?utm_source=youtube&utm_medium=courseteam_practice_desc&utm_campaign=problem_of_the_day
+for min use preorder
+*/
+
+class Solution{
+  public:
+    vector<int> v;
+    void in(Node *root){
+        if(!root)
+            return;
+        in(root->left);
+        v.push_back(root->data);
+        in(root->right);
+    }
+    void post(Node *root){
+        if(!root)
+            return;
+        post(root->left);
+        post(root->right);
+        root->data = v.back();
+        v.pop_back();
+    }
+    void convertToMaxHeapUtil(Node* root)
+    {
+        in(root);
+        reverse(v.begin(), v.end());
+        post(root);
+        
+    }    
+};
