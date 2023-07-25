@@ -1,0 +1,34 @@
+/*
+https://leetcode.com/problems/reorganize-string/description/
+https://www.youtube.com/watch?v=YcpRIUJDb9U&ab_channel=Pepcoding
+*/
+
+class Solution {
+public:
+    string reorganizeString(string s) {
+        int n = s.size();
+        map<char, int> m;
+        for(char ch:s){
+            m[ch]++;
+        }
+        priority_queue<pair<int , char> > pq;
+        for(auto itr:m){
+            pq.push(make_pair(itr.second, itr.first));
+        }
+        pair<int, int> g = {-1, '$'};
+        string ans = "";
+        while(!pq.empty()){
+            auto temp = pq.top();
+            pq.pop();
+            ans += temp.second;
+            temp.first--;
+            if(g.first > 0){
+                pq.push(g);
+            }
+            g = temp;
+        }
+        if(n == ans.size())
+            return ans;
+        return "";
+    }
+};
