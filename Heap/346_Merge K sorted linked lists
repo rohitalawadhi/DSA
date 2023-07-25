@@ -1,0 +1,43 @@
+
+/*
+https://www.youtube.com/watch?v=YMbB2Sa3f5Y&ab_channel=GeeksforGeeksPractice
+https://practice.geeksforgeeks.org/problems/merge-k-sorted-linked-lists/1
+*/
+
+class Solution{
+  public:
+    //Function to merge K sorted linked list.
+    typedef struct compare{
+        bool operator()(struct Node* a, struct Node* b){
+            return a->data > b->data;
+        }
+    }compare;
+    Node * mergeKLists(Node *arr[], int k)
+    {
+           Node *head = NULL;
+           Node *currPos = NULL;
+           priority_queue<Node *, vector<Node *>, compare> pq;
+           for(int i = 0; i < k; i++){
+               pq.push(arr[i]);
+           }
+           
+           while(!pq.empty()){
+               Node *curr = pq.top();
+               pq.pop();
+               
+               if(!head){
+                   head = curr;
+                   currPos = curr;
+               }
+               else{
+                   currPos->next = curr;
+                   currPos = currPos->next;
+               }
+               if(curr->next != NULL)
+                    pq.push(curr->next);
+               
+           }
+           currPos->next = NULL;
+           return head;
+    }
+};
