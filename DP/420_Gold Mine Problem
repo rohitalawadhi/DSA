@@ -1,0 +1,23 @@
+/*
+https://www.youtube.com/watch?v=tQU4rkmPyV0&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+https://practice.geeksforgeeks.org/problems/gold-mine-problem2608/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+*/
+
+class Solution{
+public:
+    int maxGold(int m, int n, vector<vector<int>> gold)
+    {
+        for(int col = n - 2; col >= 0; col--){
+            for(int row = 0; row < m; row++){
+                int right = gold[row][col + 1];
+                int right_up = row == 0 ? 0 : gold[row - 1][col + 1];
+                int right_down = row == m - 1 ? 0 : gold[row + 1][col + 1];
+                gold[row][col] = gold[row][col] + max(right, max(right_up, right_down));
+            }
+        }
+        int res = gold[0][0];
+        for(int i = 1; i < m; i++)
+            res = max(res, gold[i][0]);
+        return res;
+    }
+};
