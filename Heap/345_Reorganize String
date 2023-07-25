@@ -1,6 +1,7 @@
 /*
 https://leetcode.com/problems/reorganize-string/description/
 https://www.youtube.com/watch?v=YcpRIUJDb9U&ab_channel=Pepcoding
+https://practice.geeksforgeeks.org/problems/rearrange-characters4649/1
 */
 
 class Solution {
