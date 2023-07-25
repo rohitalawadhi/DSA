@@ -1,0 +1,23 @@
+/*
+
+https://www.youtube.com/watch?v=Ebj83h76VUU&t=121s&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+https://www.geeksforgeeks.org/permutation-coefficient/
+*/
+
+int fact[n + 1];
+fact[0] = 1;
+for(int i = 1; i <= n; i++){
+  fact[i] = i * fact[i - 1];
+}
+
+cout<<fact[n] / fact[n - k];
+
+
+-----------------------------
+
+
+int p = 1;
+for(int i = 0; i < k; i++)
+{
+ p = p * (n - 1);
+}
