@@ -1,0 +1,33 @@
+/*
+https://www.youtube.com/watch?v=kKEX4P53MyY&list=PLDdcY4olLQk3Z2Gyo3-VN8gvi7DRKK-YY&index=41&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+https://practice.geeksforgeeks.org/problems/maximum-sum-rectangle2948/1
+*/
+
+class Solution {
+  public:
+    int kadane(vector<int> v, int n){
+        int ma = INT_MIN;
+        int until = 0;
+        for(int i = 0; i < n; i++){
+            until += v[i];
+            if(until > ma)
+                ma = until;
+            if(until < 0)
+                until = 0;
+        }
+        return ma;
+    }
+    int maximumSumRectangle(int r, int c, vector<vector<int>> mat) {
+        int ma = INT_MIN;
+        for(int i = 0; i < r; i++){
+            vector<int> ans(c);
+            for(int j = i; j < r; j++){
+                for(int col = 0; col < c; col++){
+                    ans[col] += mat[j][col];
+                }
+                ma = max(ma, kadane(ans, c));
+            }
+        }
+        return ma;
+    }
+};
