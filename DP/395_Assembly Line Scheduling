@@ -1,0 +1,20 @@
+/*
+https://practice.geeksforgeeks.org/problems/assembly-line-scheduling/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+https://www.youtube.com/watch?v=1_SRfUUTXEc&t=12s&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+*/
+
+class Solution{
+  public:
+  int carAssembly(vector<vector<int>>& a, vector<vector<int>>& t, vector<int>& e, vector<int>& x){
+      int first, second, i;
+      first = e[0] + a[0][0];
+      second = e[1] + a[1][0];
+      for(i = 1; i < a[0].size(); i++){
+          int one = min(first + a[0][i], second + t[1][i] + a[0][i]);
+          int two = min(second + a[1][i], first + t[0][i] + a[1][i]);
+          first = one;
+          second = two;
+      }
+      return min(first + x[0], second + x[1]);
+  }
+};
