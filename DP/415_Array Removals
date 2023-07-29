@@ -1,0 +1,23 @@
+/*
+https://www.youtube.com/watch?v=kqdoUDVXFik&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+https://practice.geeksforgeeks.org/problems/array-removals/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+*/
+
+class Solution{
+    public:
+    int removals(vector<int>& a, int k){
+        sort(a.begin(), a.end());
+        int n = a.size(), ans = n - 1;
+        if(a.size() == 1)
+            return 0;
+        else{
+            ans = a.size() - 1;
+            for(int i = 0; i < a.size(); i++){
+                auto j = upper_bound(a.begin() + i, a.end(), a[i] + k);
+                int x = j - a.begin() - 1;
+                ans = min(ans, n - (x - i + 1));
+            }
+        }
+        return ans;
+    }
+};
