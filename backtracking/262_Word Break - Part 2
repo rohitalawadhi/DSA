@@ -1,0 +1,33 @@
+/*
+https://github.com/viren-sureja/Love-Babbar-450/blob/master/09_backtracking/03_word_break_problem_using_backtracking.cpp
+https://practice.geeksforgeeks.org/problems/word-break-part-23249/1
+https://www.youtube.com/watch?v=LmHWIsBQBU4&ab_channel=Pepcoding
+*/
+
+class Solution{
+public:
+    unordered_set<string> dict;
+    vector<string> allAns;
+    void backtracking(string str, string ans){
+        if(str.size() == 0){
+            allAns.push_back(ans.substr(0, ans.size() - 1));
+            return;
+        }
+        for(int i = 0; i < str.size(); i++){
+            string left = str.substr(0, i + 1);
+            if(dict.find(left) != dict.end()){
+                string right = str.substr(i + 1);
+                backtracking(right, ans + left + " ");
+            }
+        }
+    }
+    vector<string> wordBreak(int n, vector<string>& wordDict, string s)
+    {
+        dict.clear();
+        allAns.clear();
+        for(string curr: wordDict)
+            dict.insert(curr);
+        backtracking(s, "");
+        return allAns;
+    }
+};
