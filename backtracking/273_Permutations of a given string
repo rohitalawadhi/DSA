@@ -1,0 +1,30 @@
+
+/*
+https://practice.geeksforgeeks.org/problems/permutations-of-a-given-string2041/1
+
+*/
+class Solution
+{
+	public:
+	    void solve(vector<string> nums,vector<string> &ans, int index){
+	        if(index >= nums.size()){
+	            ans.push_back(nums);
+	            return;
+	        }
+	        
+	        for(int j = index; j < nums.size(); j++){
+	            swap(nums[index], nums[j]);
+	            solve(nums, ans, index);
+	            swap(nums[index], nums[j]);
+	        }
+	    }
+		vector<string>find_permutation(string s)
+		{
+		    vector<string> v;
+		    v.push_back(s);
+		    vector<string> ans;
+		    int index = 0;
+		    solve(v, ans, index);
+		    return ans;
+		}
+};
