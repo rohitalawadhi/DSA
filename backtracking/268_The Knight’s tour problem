@@ -1,3 +1,8 @@
+/*
+https://www.geeksforgeeks.org/the-knights-tour-problem/
+https://github.com/viren-sureja/Love-Babbar-450/blob/master/09_backtracking/09_knights_tour_problem.cpp
+*/
+
 #include <iostream>
 #include <bits/stdc++.h>
 using namespace std;
