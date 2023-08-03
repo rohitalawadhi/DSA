@@ -1,0 +1,35 @@
+/*
+https://practice.geeksforgeeks.org/problems/find-all-possible-palindromic-partitions-of-a-string/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+https://www.youtube.com/watch?v=WBgsABoClE0&ab_channel=takeUforward
+*/
+
+class Solution {
+  public:
+  bool isPalindrome(string s, int start, int end){
+      while(start <= end){
+          if(s[start++] != s[end--])
+            return false;
+      }
+      return true;
+  }
+    void recur(int index, string s, vector<string>& path, vector<vector<string>>& res){
+        if(index == s.size()){
+            res.push_back(path);
+            return;
+        }
+        
+        for(int i = index; i < s.size(); i++){
+            if(isPalindrome(s, index, i)){
+                path.push_back(s.substr(index, i - index + 1));
+                recur(i + 1, s, path, res);
+                path.pop_back();
+            }
+        }
+    }
+    vector<vector<string>> allPalindromicPerms(string s) {
+        vector<vector<string>> res;
+        vector<string> path;
+        recur(0, s, path, res);
+        return res;
+    }
+};
