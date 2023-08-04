@@ -1,0 +1,40 @@
+
+
+/*
+https://www.youtube.com/watch?v=Jdctlrjp1YI&ab_channel=GeeksforGeeksPractice
+https://practice.geeksforgeeks.org/problems/find-all-possible-paths-from-top-to-bottom/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+*/
+
+class Solution
+{
+public:
+    vector<vector<int>> ans;
+    void back(int i, int j, int n, int m, vector<vector<int>> &grid, vector<int> path){
+        if(i == n - 1 and j == m - 1){
+            path.push_back(grid[i][j]);
+            ans.push_back(path);
+            return;
+        }
+        else if(i == n - 1){
+            path.push_back(grid[i][j]);
+            back(i, j + 1, n, m, grid, path);
+        }
+        else if(j == m - 1){
+            path.push_back(grid[i][j]);
+            back(i + 1, j, n, m, grid, path);
+        }
+        else{
+            path.push_back(grid[i][j]);
+            back(i + 1, j, n, m, grid, path);
+            back(i, j + 1, n, m, grid, path);
+            
+        }
+            
+    }
+    vector<vector<int>> findAllPossiblePaths(int n, int m, vector<vector<int>> &grid)
+    {
+        vector<int> path;
+        back(0, 0, n, m, grid, path);
+        return ans;
+    }
+};
