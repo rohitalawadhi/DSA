@@ -1,0 +1,54 @@
+/*
+https://practice.geeksforgeeks.org/problems/solve-the-sudoku-1587115621/1
+https://www.youtube.com/watch?v=8lWxaRviJBA&t=1058s&ab_channel=CodeHelp-byBabbar
+*/
+
+class Solution 
+{
+    public:
+    bool isSafe(int row, int col, int board[N][N], int val){
+        for(int i = 0; i < N; i++){
+            if(board[row][i] == val)
+                return false;
+            if(board[i][col] == val)
+                return false;
+            if(board[3 * (row / 3) + i/3][3 * (col/3 ) + i%3] == val)
+                return false;
+        }
+        return true;
+    }
+    //Function to find a solved Sudoku. 
+    bool SolveSudoku(int board[N][N])  
+    { 
+        int n = 9;//board[0].size();
+        for(int row = 0; row < n; row++){
+            for(int col = 0; col < n; col++){
+                if(board[row][col] == 0){
+                   for(int val = 1; val <= 9; val++){
+                         if(isSafe(row, col, board, val)){
+                            board[row][col] = val;
+                            bool aageSolutionPosible = SolveSudoku(board);
+                            if(aageSolutionPosible)
+                                return true;
+                            else
+                                board[row][col] = 0;
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+    }
+    
+    //Function to print grids of the Sudoku.
+    void printGrid (int grid[N][N]) 
+    {
+        vector<vector<int> > sudoku(N, vector<int>(N, 0));
+        for(int i = 0; i < N; i++){
+            for(int j = 0; j < N; j++){
+                cout<<grid[i][j]<<" ";
+            }
+        }
+        
+    }
+};
