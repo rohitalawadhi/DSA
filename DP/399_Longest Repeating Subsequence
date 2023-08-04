@@ -1,0 +1,27 @@
+// https://practice.geeksforgeeks.org/problems/longest-repeating-subsequence2004/1
+
+class Solution {
+	public:
+	   int solve(string s, int m , int n , vector< vector<int> >& dp)
+	   {
+	       if(m == s.length() or n == s.length())
+	        return 0;
+	       
+	       if(dp[m][n] != -1)
+	        return dp[m][n];
+	        
+	        int ans = 0;
+	        if(s[m] == s[n] and m != n)
+	            ans  = 1 + solve(s, m + 1, n + 1, dp);
+	        else
+	            ans = max(solve(s, m , n + 1, dp), solve(s, m + 1, n , dp));
+            
+            return dp[m][n] = ans;
+	   }
+		int LongestRepeatingSubsequence(string str){
+		    vector< vector<int> > dp(str.length() , vector<int> (str.length() , -1));
+		    
+		    return solve(str, 0, 0, dp);
+		}
+
+};
