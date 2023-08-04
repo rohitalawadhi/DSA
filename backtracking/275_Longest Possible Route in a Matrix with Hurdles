@@ -1,0 +1,35 @@
+/*
+https://practice.geeksforgeeks.org/problems/longest-possible-route-in-a-matrix-with-hurdles/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+https://www.youtube.com/watch?v=RvgRDXEBajw&ab_channel=Let%27sPracticeTogether
+
+*/
+
+class Solution {
+public:
+    void calcPath(vector<vector<int>> matrix, int xs, int ys, int xd, int yd, int currLen, int &length){
+        if(xs == xd and ys == yd){
+            if(currLen > length){
+                length = currLen;
+                return;
+            }
+        }
+        vector<pair<int, int> > direction = {{0,1},{0,-1},{1,0},{-1,0}};
+        matrix[xs][ys] = 2;
+        for(auto i:direction){
+            int nowX = xs + i.first;
+            int nowY = ys + i.second;
+            if(nowX >= 0 and nowY >= 0 and nowX < matrix.size() and nowY < matrix[0].size() and matrix[nowX][nowY] == 1){
+                calcPath(matrix, nowX, nowY, xd, yd, currLen + 1, length);
+            }
+        }
+        matrix[xs][ys] = 1;
+    }
+    int longestPath(vector<vector<int>> matrix, int xs, int ys, int xd, int yd)
+    {
+        if(matrix[xs][ys] == 0 || matrix[xd][yd] == 0)
+            return -1;
+            int length = -1;
+            calcPath(matrix, xs, ys, xd, yd, 0, length);
+            return length;
+    }
+};
