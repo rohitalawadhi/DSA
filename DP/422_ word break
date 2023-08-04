@@ -1,0 +1,35 @@
+// https://practice.geeksforgeeks.org/problems/word-break1352/1
+
+class Solution
+{
+public:
+    int dp[1500];
+    
+    int solve(int i, string s, set<string>& b)
+    {
+        if(i == s.size())
+            return 1;
+        if(dp[i] != -1)
+            return dp[i];
+        string temp;
+        for(int j=i; j<s.size(); j++)
+        {   
+            temp = temp + s[j];
+            if(b.find(temp) != b.end())
+            {
+                if(solve(j+1, s, b))
+                    return dp[i] = 1;
+            }
+        }
+        return dp[i] = 0;
+    }
+    int wordBreak(string A, vector<string> &B) {
+        set<string> s;
+        for(int i{0}; i< 1500; i++)
+            dp[i] = -1;
+       for(int i=0; i<B.size(); i++)
+            s.insert(B[i]);
+        return solve(0, A, s);
+            
+    }
+};
