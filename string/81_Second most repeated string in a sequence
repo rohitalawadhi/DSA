@@ -1,0 +1,28 @@
+// https://practice.geeksforgeeks.org/problems/second-most-repeated-string-in-a-sequence0534/1
+// https://www.geeksforgeeks.org/second-repeated-word-sequence/
+class Solution
+{
+  public:
+    string secFrequent (string seq[], int n)
+    {
+        unordered_map<string, int> occ;
+        for(int i = 0; i < n; i++)
+            occ[seq[i]]++;
+        
+        if(occ.size() == 1)
+            return "";
+        int first_max = INT_MIN, sec_max = INT_MIN;
+        for(auto it = occ.begin(); it != occ.end(); it++){
+            if(it->second > first_max){
+                sec_max = first_max;
+                first_max = it->second;
+            }
+            else if(it->second > sec_max and it->second != first_max)
+                sec_max = it->second;
+        }
+        
+        for(auto it = occ.begin(); it != occ.end(); it++)
+            if(it->second == sec_max)
+                return it->first;
+    }
+};
