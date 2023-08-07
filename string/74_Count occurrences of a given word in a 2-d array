@@ -1,0 +1,37 @@
+// https://www.youtube.com/watch?v=ZYeVllg0D7E&t=506s&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+// https://practice.geeksforgeeks.org/problems/count-occurences-of-a-given-word-in-a-2-d-array/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+class Solution{
+    public:
+    int solve(int i, int j, string s, vector<vector<char> > &mat, int size, int idx){
+        int found = 0;
+        if(i >= 0 and j >= 0 and i < mat.size() and j < mat[0].size() and s[idx] == mat[i][j]){
+            int temp = s[idx];
+            mat[i][j] = 0;
+            idx += 1;
+            if(idx == size){
+                found = 1;
+            }
+            else
+            {
+                found += solve(i + 1, j, s, mat, size, idx);
+                found += solve(i - 1, j, s, mat, size, idx);
+                found += solve(i, j + 1, s, mat, size, idx);
+                found += solve(i, j - 1, s, mat, size, idx);
+            }
+            mat[i][j] = temp;
+        }
+        return found;
+    }
+    int findOccurrence(vector<vector<char> > &mat, string target){
+        int ans = 0;
+        int size = target.size();
+        for(int i = 0; i < mat.size(); i++){
+            for(int j = 0; j < mat[0].size(); j++){
+                ans += solve(i, j, target, mat, size, 0);
+        }
+    
+        
+    }
+    return ans;    
+    }
+};
