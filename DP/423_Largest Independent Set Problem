@@ -1,0 +1,22 @@
+// https://practice.geeksforgeeks.org/problems/largest-independent-set-problem/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+
+// https://www.youtube.com/watch?v=x3zqD1kj_T0&ab_channel=Mr.SecCoder
+
+int LISS(Node *root)
+{
+    if(root == NULL)
+        return 0;
+    
+    int size_excl = LISS(root->left) + LISS(root->right);
+    
+    int size_incl = 1;
+    
+    if(root->left)
+        size_incl += LISS(root->left->left) + LISS(root->left->right);
+        
+    if(root->right)
+        size_incl += LISS(root->right->left) + LISS(root->right->right);
+        
+    return max(size_incl, size_excl);
+}
