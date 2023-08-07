@@ -1,0 +1,35 @@
+// https://practice.geeksforgeeks.org/problems/count-the-reversals0401/1
+// https://www.youtube.com/watch?v=-n_CsIL3Ts4&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+
+int countRev (string s)
+{
+    if(s.length() & 1)
+        return -1;
+    
+    else{
+        stack<char> st;
+        int c = 0, c2 = 0;
+        for(int i = 0; i < s.length(); i++){
+            char ch = s[i];
+            if(ch == '{'){
+                st.push(ch);
+                c2++;
+            }
+            else if(ch == '}' and !st.empty() and  st.top() == '{'){
+                st.pop();
+                c2--;
+            }
+            else
+                c++;
+        }
+        if(c & 1)
+            c = (c / 2) + 1;
+        else
+            c = c / 2;
+        if(c2 & 1)
+            c2 = (c2 / 2) + 1;
+        else
+            c2 = c2 / 2;
+        return c + c2;
+    }
+}
