@@ -1,0 +1,29 @@
+// https://practice.geeksforgeeks.org/problems/count-palindromic-subsequences/1
+// https://www.youtube.com/watch?v=vlbA8oUxSV0&t=616s&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+class Solution {
+public:
+    const int mod = 1e9 + 7;
+
+    long long int solve(string &str, int i, int j, vector<vector<int>> &dp) {
+        if (i > j)
+            return 0;
+        
+        if (i == j)
+            return 1;
+
+        if (dp[i][j] != -1)
+            return dp[i][j];
+
+        if (str[i] == str[j])
+            return dp[i][j] = (solve(str, i, j - 1, dp) % mod + solve(str, i + 1, j, dp) % mod + 1) % mod;
+
+        else
+            return dp[i][j] = ((solve(str, i, j - 1, dp) % mod + solve(str, i + 1, j, dp) % mod) % mod - solve(str, i + 1, j - 1, dp) % mod + mod) % mod;
+    }
+
+    long long int countPS(string str) {
+        int n = str.size();
+        vector<vector<int>> dp(n, vector<int>(n, -1));
+        return solve(str, 0, n - 1, dp);
+    }
+};
