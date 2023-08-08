@@ -1,0 +1,35 @@
+// https://practice.geeksforgeeks.org/problems/longest-palindrome-in-a-string3411/1
+// https://practice.geeksforgeeks.org/problems/longest-palindrome-in-a-string1956/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+class Solution {
+  public:
+  int maxLength ;
+  string res ;
+    void solve( int left, int right, string s)
+    {
+        while(left >= 0 and right < s.length() and s[left] == s[right]){
+            left--;
+            right++;
+        }
+        
+        if(right - left - 1 > maxLength)
+        {
+            res = s.substr(left + 1, right - left - 1);
+            maxLength = right - left - 1;
+        }
+        return;
+            
+    }
+    string longestPalin (string s) {
+        
+        maxLength = 1;
+        res="";
+        for(int i{0}; i < s.length(); i++){
+            //if(s.length() % 2 != 0)
+           solve( i, i, s);
+            solve(  i, i + 1, s);
+        }
+        if(maxLength == 1)
+            return string(1, s[0]);
+        return res;
+    }
+};
