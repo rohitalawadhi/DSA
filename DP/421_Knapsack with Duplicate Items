@@ -1,0 +1,31 @@
+// https://practice.geeksforgeeks.org/problems/knapsack-with-duplicate-items4201/1
+// https://www.youtube.com/watch?v=S1nStf-TM6c&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+
+class Solution{
+public:
+    int solve(int capacity, int *weight, int * val, int n, vector<vector<int>> &dp)
+    {
+        if(n <= -1)
+            return 0;
+            
+        if(dp[n][capacity] != -1)
+        {
+            return dp[n][capacity]; 
+        }
+        if(weight[n] > capacity)
+            return dp[n][capacity] = solve(capacity, weight, val, n-1, dp);
+        int include{0}, exclude;
+        include = val[n] + solve(capacity - weight[n], weight, val, n, dp);
+        exclude = solve(capacity, weight, val, n-1, dp);
+        dp[n][capacity] = max(include, exclude);
+        return dp[n][capacity];
+    }
+    //Function to return max value that can be put in knapsack of capacity W.
+    int knapSack(int n, int W, int val[], int wt[])
+    {
+        vector<vector<int>> dp(n , vector<int>(W+1, -1));
+        return solve(W, wt, val, n-1, dp);
+    }
+
+    
+};
