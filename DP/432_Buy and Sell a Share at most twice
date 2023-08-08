@@ -1,0 +1,20 @@
+// https://practice.geeksforgeeks.org/problems/buy-and-sell-a-share-at-most-twice/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+
+
+
+
+int maxProfit(vector<int>&prices){
+        int n = prices.size();
+        int maxValue = prices[n - 1], maxProfit{0};
+        vector<int> profit(n, 0);
+        for(auto i{n - 2}; i >= 0; i--){
+            maxValue = max(prices[i], maxValue);
+            profit[i] = max(profit[i + 1], maxValue - prices[i]);
+        }
+        int minValue = prices[0];
+        for(auto i{1}; i < n; i++){
+            minValue = min(prices[i], minValue);
+            profit[i] = max(profit[i - 1],profit[i] +  (prices[i] - minValue));
+        }
+        return profit[n - 1];
+    }
