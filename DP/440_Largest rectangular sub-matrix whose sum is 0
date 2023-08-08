@@ -1,0 +1,64 @@
+
+//https://practice.geeksforgeeks.org/problems/largest-rectangular-sub-matrix-whose-sum-is-0/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+// https://www.youtube.com/watch?v=xbA4E70kcKE&ab_channel=AdityaRajiv
+class Solution{
+  public:
+  vector<vector<int>> sumZeroMatrix(vector<vector<int>> a){
+      int m = a.size();
+      int n = a[0].size();
+      
+      int left, right, up, down;
+      left = right = up = down = 0;
+      
+      for(int i=0; i<n; i++){
+          vector<int> arr(m, 0);
+          
+          for(int j=i; j<n; j++){
+              for(int k=0; k<m; k++){
+                  arr[k] += a[k][j];
+              }
+              
+              unordered_map<long long, int> map;
+              map[0] = -1;
+              
+              int l=0, r=0;
+              long long sum = 0;
+              
+              for(int k=0; k<m; k++){
+                  sum += arr[k];
+                  
+                  if(map.count(sum)){
+                      if((k-map[sum]) > (r-l)){
+                          l = map[sum];
+                          r = k;
+                      }
+                  }
+                  
+                  map[sum] = k;
+                  
+              }
+              
+              if((j-i+1)*(r-l) > (right-left + 1)*(down-up)){
+                  up = l;
+                  down = r;
+                  left = i;
+                  right = j;
+              }
+          }
+      }
+      
+      vector<vector<int>> result;
+      
+      for(int i=up + 1; i<=down; i++){
+          vector<int> arr;
+          
+          for(int j=left; j<=right; j++){
+              arr.push_back(a[i][j]);
+          }
+          
+          result.push_back(arr);
+      }
+      
+      return result;
+  }
+};
