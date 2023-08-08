@@ -1,0 +1,18 @@
+// https://practice.geeksforgeeks.org/problems/smallest-sum-contiguous-subarray/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+// https://www.youtube.com/watch?v=XTRFIfu2OUw&ab_channel=GeeksforGeeksPractice
+class Solution{
+  public:
+  int smallestSumSubarray(vector<int>& a){
+      int n = a.size();
+      int mi = INT_MAX;
+      int sum = 0;
+      for(int i = 0; i< n; i++){
+          sum += a[i];
+          if(sum < mi)
+            mi = sum;
+          if(sum > 0)
+            sum = 0;
+      }
+      return mi;
+  }
+};
