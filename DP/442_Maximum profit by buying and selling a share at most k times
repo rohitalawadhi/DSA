@@ -1,0 +1,33 @@
+// https://practice.geeksforgeeks.org/problems/maximum-profit4657/1
+// https://www.youtube.com/watch?v=tuhjovVtDII&t=95s&ab_channel=CodeHelp-byBabbar
+class Solution {
+  public:
+    int solve(int index, int operationNo, int k, int prices[], vector<vector<int> >& dp, int N){
+        if(index == N)
+            return 0;
+        
+        if(operationNo == 2*k)
+            return 0;
+        
+        if(dp[index][operationNo] != -1)
+            return dp[index][operationNo];
+        
+        int profit = 0;
+        if(operationNo % 2 == 0){
+            int buyKaro = -prices[index] + solve(index + 1, operationNo + 1, k, prices, dp, N);
+            int skipKaro = 0 + solve(index + 1, operationNo, k, prices, dp, N);
+            profit = max(buyKaro, skipKaro);
+        }
+        else{
+            int buyKaro = prices[index] + solve(index + 1, operationNo + 1, k, prices, dp, N);
+            int skipKaro = 0 + solve(index + 1, operationNo, k, prices, dp, N);
+            profit = max(buyKaro, skipKaro);
+        }
+        
+        return dp[index][operationNo] = profit;
+    }
+    int maxProfit(int K, int N, int A[]) {
+        vector<vector<int> > dp(N, vector<int>(2*K, -1));
+        return solve(0, 0, K, A, dp, N);
+    }
+};
