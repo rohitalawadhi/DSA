@@ -1,0 +1,19 @@
+// https://practice.geeksforgeeks.org/problems/find-position-of-set-bit3706/1
+// https://www.youtube.com/watch?v=OcHP74l-qx8&list=PLDdcY4olLQk3HtsU-PxcedPtz1abfqBr4&index=5&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+class Solution {
+  public:
+    int findPosition(int N) {
+        if(N == 0 )
+            return -1;
+        if((N & (N - 1)) == 0){
+            int c = 0;
+            while(N){
+                c++;
+                N = N>>1;
+            }
+            return c;
+        }
+        else 
+            return -1;
+    }
+};
