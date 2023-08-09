@@ -1,0 +1,17 @@
+// https://practice.geeksforgeeks.org/problems/bit-difference-1587115620/1
+// https://www.youtube.com/watch?v=PvM39qzSh3E&list=PLDdcY4olLQk3HtsU-PxcedPtz1abfqBr4&index=3&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+
+class Solution{
+    public:
+    // Function to find number of bits needed to be flipped to convert A to B
+    int countBitsFlip(int a, int b){
+        int val = a ^ b;
+        int c = 0;
+        while(val){
+            if(val & 1)
+                c++;
+            val = val >> 1;
+        }
+        return c;
+    }
+};
