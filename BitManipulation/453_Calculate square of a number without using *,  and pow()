@@ -1,0 +1,32 @@
+// https://www.geeksforgeeks.org/calculate-square-of-a-number-without-using-and-pow/
+
+#include <iostream>
+using namespace std;
+ 
+int square(int num)
+{
+    // handle negative input
+    if (num < 0)
+        num = -num;
+    int power = 0, result = 0;
+    int temp = num;
+ 
+    while (temp) {
+        if (temp & 1) {
+            result += (num << power);
+        }
+        power++;
+        temp = temp >> 1;
+    }
+ 
+    return result;
+}
+ 
+int main()
+{
+    // Function calls
+    for (int n = 10; n <= 15; ++n)
+        cout << "n = " << n << ", n^2 = " << square(n)
+             << endl;
+    return 0;
+}
