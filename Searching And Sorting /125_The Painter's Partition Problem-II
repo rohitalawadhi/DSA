@@ -1,0 +1,43 @@
+// https://practice.geeksforgeeks.org/problems/the-painters-partition-problem1535/1
+// https://www.youtube.com/watch?v=YTTdLgyqOLY&ab_channel=CodeHelp-byBabbar
+class Solution
+{
+  public:
+    bool isPossible(int arr[], int n, int m, long long mid){
+        int studentCount = 1;
+        int pageSum = 0;
+        for(int i = 0; i<n; i++){
+            if(pageSum + arr[i] <= mid)
+                pageSum += arr[i];
+            else{
+                studentCount++;
+                if(studentCount > m || arr[i] > mid)
+                    return false;
+                pageSum = arr[i];
+            }
+        }
+        return true;
+    }
+    long long minTime(int arr[], int n, int m)
+    {
+        long long s = 0, sum = 0;
+        for(int i = 0; i < n; i++)
+            sum += arr[i];
+        long long e = sum;
+        long long ans = -1;
+        long long mid = s + (e - s) / 2;
+        // if( m > n)
+        //     return -1;
+        while(s <= e){
+            if(isPossible(arr, n, m, mid)){
+                ans = mid;
+                e = mid - 1;
+            }
+            else
+                s = mid + 1;
+            
+            mid = s + (e - s) / 2;
+        }
+        return ans;
+    }
+};
