@@ -1,0 +1,40 @@
+// https://www.youtube.com/watch?v=rw660m-QLDo&ab_channel=AdityaRajiv
+// https://practice.geeksforgeeks.org/problems/smallest-window-in-a-string-containing-all-the-characters-of-another-string-1587115621/1
+class Solution
+{
+    public:
+    //Function to find the smallest window in the string s consisting
+    //of all the characters of string p.
+    string smallestWindow (string s, string t)
+    {
+      if(s.length() == 0 || t.length() == 0  || s.length()  < t.length())
+        return "-1";
+      vector<int> v(256, 0);
+      for(int i = 0; i < t.length(); i++)
+        v[t[i]]++;
+    
+      int start = 0, end = 0, ans_start = 0;
+      int minlength = INT_MAX;
+      int count = 0;
+      while(end < s.length()){
+          if(v[s[end]] > 0)
+            count++;
+          v[s[end]]--;
+          while(count == (int)t.length()){
+              if(minlength > end - start + 1){
+                  minlength = end - start + 1;
+                  ans_start = start;
+              }
+              v[s[start]]++;
+              if(v[s[start]] > 0)
+                count--;
+              start++;
+          }
+          end++;
+      }
+      if(minlength == INT_MAX)
+        return "-1";
+      return s.substr(ans_start, minlength);
+    }
+    
+};
