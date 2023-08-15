@@ -1,0 +1,21 @@
+// https://practice.geeksforgeeks.org/problems/largest-subtree-sum-in-a-tree/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+// https://www.youtube.com/watch?v=7opoOv7SVko&ab_channel=GeeksforGeeks
+class Solution {
+  public:
+    // Function to find largest subtree sum.
+   
+    int solve(Node * root, int& ma){
+         if(root == NULL)
+            return 0;
+        int l = solve(root->left, ma);
+        int r = solve(root->right, ma);
+        ma = max(ma, l + r + root->data);
+        return l + r + root->data;
+    }
+    int findLargestSubtreeSum(Node* root)
+    {
+         int ma = INT_MIN;
+       solve(root, ma);
+       return ma;
+    }
+};
