@@ -1,0 +1,19 @@
+// https://github.com/viren-sureja/Love-Babbar-450/blob/master/06_binary_trees/05_mirror_of_tree.cpp
+// https://practice.geeksforgeeks.org/problems/mirror-tree/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+class Solution {
+  public:
+    // Function to convert a binary tree into its mirror tree.
+    void mirror(Node* root) {
+       if (root == NULL)
+        return ;
+       Node* t = root->left;
+        root->left = root->right;
+        root->right = t;
+    
+        if (root->left)
+            mirror(root->left);
+        if (root->right)
+            mirror(root->right);
+    
+    }
+};
