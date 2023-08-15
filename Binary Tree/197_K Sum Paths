@@ -1,0 +1,27 @@
+// https://practice.geeksforgeeks.org/problems/k-sum-paths/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+// https://www.youtube.com/watch?v=QG0hE0R_ng4&ab_channel=CodeHelp-byBabbar
+void check(Node *root, int k, int &count, int sum, unordered_map<int, int> &mp) {
+        if(root == NULL) 
+            return;
+        
+        sum += root->data;
+
+        count += mp[sum-k];
+        if(sum == k)
+            count++;
+            
+        mp[sum]++;
+        
+        check(root->left, k, count, sum, mp);
+        check(root->right, k, count, sum, mp);
+        
+        mp[sum]--;
+    }
+    int sumK(Node *root,int k)
+    {
+        // code here 
+        int count = 0;
+        unordered_map<int, int> mp;
+        check(root, k, count, 0, mp);
+        return count;
+    }
