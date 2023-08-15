@@ -1,0 +1,36 @@
+// https://practice.geeksforgeeks.org/problems/reverse-level-order-traversal/1
+// https://github.com/viren-sureja/Love-Babbar-450/blob/master/06_binary_trees/02_reverse_level_order_traversal.cpp
+vector<int> reverseLevelOrder(Node *root)
+{
+    vector<int> ans;
+    // Base Case
+    if (root == NULL)  return ans;
+
+    // Create an empty queue for level order traversal
+    queue<Node*> q;
+    stack<Node*> s;
+
+
+    // Enqueue Root and initialize height
+    q.push(root);
+
+    while (q.empty() == false)
+    {
+        // Print front of queue and remove it from queue
+        Node* node = q.front();
+
+        /*Enqueue right child */
+        if (node->right != NULL) q.push(node->right);
+
+        /* Enqueue left child */
+        if (node->left != NULL) q.push(node->left);
+
+        s.push(node);
+        q.pop();
+    }
+    while (s.size()) {
+        ans.push_back(s.top()->data);
+        s.pop();
+    }
+    return ans;
+}
