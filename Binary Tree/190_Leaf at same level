@@ -1,0 +1,33 @@
+
+//https://practice.geeksforgeeks.org/problems/leaf-at-same-level/1
+// https://www.youtube.com/watch?v=eNcS8-Blc3E&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+
+class Solution{
+  public:
+    /*You are required to complete this method*/
+    int ans = 0;
+    void solve(Node *root, int h, int &ma){
+        if(!root)
+            return;
+        if(ans == 0)
+            return;
+        if(!root->left and !root->right){
+            if(ma == -1)
+                ma = h;
+            else
+                if(h != ma)
+                    ans = 0;
+            return;
+        }
+        solve(root->left, h + 1, ma);
+        solve(root->right, h + 1, ma);
+    }
+    bool check(Node *root)
+    {
+        int ma = -1;
+        int h = 0;
+        ans = 1;
+        solve(root, h, ma);
+        return ans;
+    }
+};
