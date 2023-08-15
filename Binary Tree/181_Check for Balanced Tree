@@ -1,5 +1,7 @@
 // https://practice.geeksforgeeks.org/problems/check-for-balanced-tree/1
 // https://github.com/viren-sureja/Love-Babbar-450/blob/master/06_binary_trees/14_check_if_tree_is_balance_or_not.cpp
+// https://www.youtube.com/watch?v=nHMQ33LZ6oA&t=1979s&ab_channel=CodeHelp-byBabbar
+
 class Solution{
     public:
     int height(Node* root) {
