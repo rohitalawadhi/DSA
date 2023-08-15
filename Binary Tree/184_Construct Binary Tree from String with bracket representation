@@ -1,0 +1,61 @@
+// https://practice.geeksforgeeks.org/problems/construct-binary-tree-from-string-with-bracket-representation/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+// https://www.youtube.com/watch?v=hZnDglRWunk&ab_channel=SaiUdayKiranShinagam
+class Solution{
+public:
+int i = 0;
+    void solve(Node *root, string s){
+        if(i < s.size() and isdigit(s[i])){
+            int sum = 0;
+            while(i < s.size() and isdigit(s[i])){
+                sum = sum * 10;
+                sum = sum + s[i] - '0';
+                i++;
+            }
+            root->data = sum;
+        }   
+        if(i < s.size() and s[i] == '('  ){
+            root->left = new Node(0);
+            i++;
+            solve(root->left, s);
+             if(root->left->data == 0) root->left = NULL;
+        }   
+        if(i < s.size() and s[i] == '('  ){
+            root->right = new Node(0);
+            i++;
+            solve(root->right, s);
+              if(root->right->data == 0) root->right = NULL;
+        }   
+        if(i >= s.size() || s[i] == ')')
+        {
+            i++; 
+            return;
+        }
+        
+    }
+    // function to construct tree from string
+    Node *treeFromString(string s){
+        int n = s.size();
+        Node* root = new Node(0);
+        solve(root, s);
+        return root;
+    }
+};
+
+//{ Driver Code Starts.
+
+// Driver Code
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        string str;
+        cin >> str;
+        Solution obj;
+        Node *root = obj.treeFromString(str);
+        inorder(root);
+        cout << "\n";
+    }
+    return 0;
+}
