@@ -1,0 +1,47 @@
+
+// https://practice.geeksforgeeks.org/problems/replace-every-element-with-the-least-greater-element-on-its-right/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+// https://www.youtube.com/watch?v=Mo6OOe9KZM0&t=891s&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+class Solution{
+    public:
+    struct Node {
+        int data;
+        Node *left, *right;
+    };
+     
+    // A utility function to create a new BST node
+    Node* newNode(int item)
+    {
+        Node* temp = new Node;
+        temp->data = item;
+        temp->left = temp->right = NULL;
+        return temp;
+    }
+    Node* insert(Node* root, int val, int& suc)
+    {
+        /* If the tree is empty, return a new node */
+        if (!root)
+            return newNode(val);
+        // go to right subtree
+        if (val >= root->data)
+            root->right = insert(root->right, val, suc);
+        // If key is smaller than root's key, go to left
+        // subtree and set successor as current node
+        else {
+            suc = root->data;
+            root->left = insert(root->left, val, suc);
+        }
+        return root;
+    }
+    vector<int> findLeastGreater(vector<int>& arr, int n) {
+           Node* root = nullptr;
+            // start from right to left
+            for (int i = n - 1; i >= 0; i--) {
+                int suc = -1;
+                // insert current element into BST and
+                // find its inorder successor
+                root = insert(root, arr[i], suc);
+                arr[i] = suc;
+            }
+            return arr;
+    }
+};
