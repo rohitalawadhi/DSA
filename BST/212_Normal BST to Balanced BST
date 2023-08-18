@@ -1,0 +1,43 @@
+
+// https://practice.geeksforgeeks.org/problems/normal-bst-to-balanced-bst/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+
+// https://www.youtube.com/watch?v=ceGBg3g18js&ab_channel=Yogesh%26Shailesh%28CodeLibrary%29
+void storeBSTNodes(Node* root, vector<Node*> &nodes)
+{
+    // Base case
+    if (root==NULL)
+        return;
+ 
+    // Store nodes in Inorder (which is sorted
+    // order for BST)
+    storeBSTNodes(root->left, nodes);
+    nodes.push_back(root);
+    storeBSTNodes(root->right, nodes);
+}
+
+Node* buildTreeUtil(vector<Node*> &nodes, int start,
+                   int end)
+{
+    // base case
+    if (start > end)
+        return NULL;
+ 
+    /* Get the middle element and make it root */
+    int mid = (start + end)/2;
+    Node *root = nodes[mid];
+ 
+    /* Using index in Inorder traversal, construct
+       left and right subtress */
+    root->left  = buildTreeUtil(nodes, start, mid-1);
+    root->right = buildTreeUtil(nodes, mid+1, end);
+ 
+    return root;
+}
+
+Node* buildBalancedTree(Node* root)
+{
+    vector<Node *> nodes;
+    storeBSTNodes(root, nodes);
+    int n = nodes.size();
+    return buildTreeUtil(nodes, 0, n-1);
+}
