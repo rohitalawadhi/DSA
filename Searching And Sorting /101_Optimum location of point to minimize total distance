@@ -1,0 +1,47 @@
+// https://practice.geeksforgeeks.org/problems/optimum-location-of-point-to-minimize-total-distance/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+
+class Solution{
+    public:
+    double findDist(double x, tuple<int,int,int> &l, vector<pair<int,int>> &p, int n){
+        double a = get<0>(l);
+        double b = get<1>(l);
+        double c = get<2>(l);
+        
+        double y = -1 * (c + (a * x)) / b;
+        double dist = 0;
+        
+        for(auto &point:p){
+            double x1 = point.first;
+            double y1 = point.second;
+            
+            dist += sqrt((x1 - x)*(x1 - x) + (y1 - y)*(y1 - y));
+        }
+        return dist;
+    }
+    double findOptimumCost(tuple<int,int,int>l, vector<pair<int,int>>p, int n){
+	    double low = -1e6;
+	    double high = 1e6;
+	    double eps = 1e-6;
+	    
+	    while(high - low > eps){
+	        double x1 = low + (high - low) / 3;
+	        double x2 = high - (high - low) / 3;
+	        
+	        double d1 = findDist(x1, l, p, n);
+	        double d2 = findDist(x2, l, p, n);
+	        
+	        if(d1 > d2){
+	            low = x1;
+	        }
+	        else if(d1 < d2){
+	            high = x2;
+	        }
+	        else{
+	            low = x1;
+	            high = x2;
+	        }
+	    }
+	    return findDist(low, l, p, n);
+    }
+};
