@@ -1,0 +1,39 @@
+
+//https://practice.geeksforgeeks.org/problems/merge-two-bst-s/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+// https://www.youtube.com/watch?v=18w8VduomfI&t=923s
+class Solution
+{
+    public:
+    //Function to return a list of integers denoting the node 
+    //values of both the BST in a sorted order.
+     void inorder(Node * root , vector<int>&ans){
+        if(root == NULL){
+            return ; 
+        }
+        inorder(root->left , ans) ; 
+        ans.push_back(root->data) ; 
+        inorder(root->right , ans) ; 
+    }
+    vector<int> merge(Node *root1, Node *root2)
+    {
+        vector<int> r1,r2;
+        inorder(root1 , r1) ; 
+        inorder(root2 , r2) ; 
+        vector<int> ans;
+        int n = r1.size(),m = r2.size();
+        int i = 0,j = 0 ;
+        while(i<n && j < m){
+            if(r1[i] < r2[j]){
+                ans.push_back(r1[i++]);
+            }
+            else {
+                ans.push_back(r2[j++]);
+            }
+        }
+        while(i<n) ans.push_back(r1[i++]);
+        while(j<m) ans.push_back(r2[j++]);
+        
+        return ans;
+        
+    }
+};
