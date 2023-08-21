@@ -1,0 +1,26 @@
+// https://practice.geeksforgeeks.org/problems/duplicate-subtree-in-binary-tree/1
+class Solution {
+  public:
+    /*This function returns true if the tree contains 
+    a duplicate subtree of size 2 or more else returns false*/
+    string duplicate(Node *root,unordered_set<string>&str)
+    {
+        if(root==NULL) return "N";
+        string ltree=duplicate(root->left,str);
+        if(ltree=="") return "";
+        string rtree=duplicate(root->right,str);
+        if(rtree=="") return "";
+        string s=ltree+rtree+root->data;
+        if(s.length()>3&&str.find(s)!=str.end()) return "";
+        str.insert(s);
+        return s;
+    }
+    
+    int dupSub(Node *root) {
+         // code here
+         unordered_set<string>str;
+         string ans=duplicate(root,str);
+         if(ans=="") return true;
+         return false;
+    }
+};
