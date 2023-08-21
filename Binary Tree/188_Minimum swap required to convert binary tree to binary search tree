@@ -1,0 +1,31 @@
+// https://practice.geeksforgeeks.org/problems/minimum-swap-required-to-convert-binary-tree-to-binary-search-tree/1?utm_source=geeksforgeeks&utm_medium=ml_article_practice_tab&utm_campaign=article_practice_tab
+
+
+class Solution{
+  public:
+  int min_swaps(vector<int> &v){
+      vector<pair<int,int>> b;
+      int cnt=0;
+      for(int i=0;i<v.size();i++) b.push_back({v[i],i});
+      sort(b.begin(),b.end());
+      for(int i=0;i<v.size();i++){
+          if(i!=b[i].second){
+              swap(b[i],b[b[i].second]);
+              i--;
+              cnt++;
+          }
+      }
+      return cnt;
+    }
+    void fun(vector<int> &a,int index,vector<int> &v){
+      if(index>=a.size()) return ;
+      fun(a,2*index+1,v);
+      v.push_back(a[index]);
+      fun(a,2*index+2,v);
+    }
+    int minSwaps(vector<int>&a, int n){
+        vector<int> v;
+        fun(a,0,v);
+        return min_swaps(v);
+    }
+};
