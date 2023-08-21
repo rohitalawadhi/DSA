@@ -1,0 +1,26 @@
+// https://practice.geeksforgeeks.org/problems/duplicate-subtrees/1
+
+string solve(Node *root, vector<Node*>&s, unordered_map<string, int> &mp)
+{
+    if(root == NULL) return "N";
+    string ans = "";
+    
+    
+    ans += "," + solve(root->right, s, mp);
+    ans += "," + solve(root->left, s, mp);
+    ans += "," + to_string(root->data);
+    if(mp[ans] == 1)
+    {
+        s.push_back(root);
+    }
+    mp[ans] ++;
+    return ans;
+}
+
+vector<Node*> printAllDups(Node* root)
+{
+    unordered_map<string, int> mp;
+    vector<Node *> ans;
+    solve(root, ans, mp);
+    return ans;
+}
