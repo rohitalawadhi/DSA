@@ -1,0 +1,111 @@
+// https://www.youtube.com/watch?v=wnvT1hCvvgM&ab_channel=sKSama
+// https://practice.geeksforgeeks.org/problems/d857113143f69fab217cf5dab978535542f3cbb1/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+class TrieNode {
+    public:
+        char data;
+        TrieNode* children[26];
+        bool isTerminal;
+        TrieNode(char ch){
+            data = ch;
+            for(int i = 0; i < 26; i++){
+                children[i] = NULL;
+            }
+            isTerminal = false;
+        }
+};
+
+class Trie {
+    public: 
+        TrieNode* root;
+
+        Trie(){
+            root = new TrieNode('\0');
+        }
+
+        void insertUtil(TrieNode* root, string word){
+            if(word.length() == 0){
+                root->isTerminal = true;
+                return;
+            }
+            int idx = word[0]-'a';
+            TrieNode* child;
+            if(root->children[idx] != NULL){
+                child = root->children[idx];
+            }
+            else{
+                child = new TrieNode(word[0]);
+                root->children[idx] = child;
+            }
+            insertUtil(child, word.substr(1));
+        }
+
+        void insertWord(string word){
+            insertUtil(root, word);
+        }
+
+        bool searchUtil(TrieNode* root, string word){
+            if(word.length() == 0){
+                return root->isTerminal;
+            }
+            int idx = word[0]-'a';
+            TrieNode* child;
+            if(root->children[idx] != NULL){
+                child = root->children[idx];
+            }
+            else{
+                return false;
+            }
+            return searchUtil(child, word.substr(1));
+        }
+
+        bool searchWord(string word){
+            return searchUtil(root, word);
+        }
+
+        void deleteUtil(TrieNode* root, string word){
+            if(word.length() == 0){
+                root->isTerminal = false;
+                return;
+            }
+            int idx = word[0]-'a';
+            TrieNode* child;
+            if(root->children[idx] != NULL){
+                child = root->children[idx];
+            }
+            else{
+                return;
+            }
+            deleteUtil(child, word.substr(1));
+        }
+
+        void deleteWord(string word){
+            deleteUtil(root, word);
+        }
+        bool solve(string word){
+            int sz = word.size();
+            if(sz == 0){
+                return true;
+            }
+            for(int i = 1; i <= sz; i++){
+                if(searchWord(word.substr(0, i)) && solve(word.substr(i, sz-i))){
+                    return true;
+                }
+            }
+            return false;
+        }
+};
+
+class Solution{
+    public:
+    // A : given string to search
+    // B : vector of available strings
+    
+    int wordBreak(string A, vector<string> &B) {
+        Trie *t = new Trie();
+        
+        for(int i = 0; i < B.size(); i++){
+            t->insertWord(B[i]);
+        }
+        return t->solve(A);
+    }
+};
