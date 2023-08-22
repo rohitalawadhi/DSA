@@ -1,1 +1,31 @@
 // https://www.youtube.com/watch?v=Y6dOuGjwsxU&t=2517s&ab_channel=CodeHelp-byBabbar
+// https://practice.geeksforgeeks.org/problems/d857113143f69fab217cf5dab978535542f3cbb1/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+void insert(struct TrieNode *root, string key)
+{
+    // code here
+    TrieNode* node=root;
+    for(auto i:key)
+    {
+        if(!node->children[i-'a'])
+        {
+            node->children[i-'a']=new TrieNode();
+        }
+        node=node->children[i-'a'];
+    }
+    
+    node->isLeaf=true;
+}
+
+//Function to use TRIE data structure and search the given string.
+bool search(struct TrieNode *root, string key) 
+{
+    // code here
+    TrieNode* node=root;
+    for(auto i:key)
+    {
+        if(!node->children[i-'a']) return false;
+        node=node->children[i-'a'];
+    }
+    
+    return node->isLeaf;
+}
