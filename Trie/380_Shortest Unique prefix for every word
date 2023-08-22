@@ -1,0 +1,47 @@
+// https://www.youtube.com/watch?v=ZCIyw4TP2SU
+// https://practice.geeksforgeeks.org/problems/shortest-unique-prefix-for-every-word/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
+class TrieNode{
+    public:
+    TrieNode* arr[26];
+    int cnt;
+    TrieNode(){
+        for(int i = 0; i < 26; i++){
+            arr[i] = NULL;
+        }
+        cnt = 0;
+    }
+};
+class Solution
+{
+    public:
+    void insert_string(TrieNode* root, string s){
+        for(int i = 0; i < s.length(); i++){
+            if(root->arr[s[i] - 'a'] == NULL){
+                root->arr[s[i] - 'a'] = new TrieNode();
+            }
+            root = root->arr[s[i] - 'a'];
+            (root->cnt)++;
+        }
+    }  
+    vector<string> findPrefixes(string arr[], int n)
+    {
+        TrieNode* root = new TrieNode();
+        for(int i = 0; i < n; i++){
+            insert_string(root, arr[i]);
+        }
+        vector<string> ans;
+        for(int i = 0; i < n; i++){
+            string s = arr[i];
+            TrieNode* node = root;
+            for(int j = 0; j < s.length(); j++){
+                node = node -> arr[s[j] - 'a'];
+                if(node -> cnt == 1){
+                  ans.push_back(s.substr(0, j + 1));
+                  break;
+                }
+            }
+        }
+        return ans;
+    }
+    
+};
