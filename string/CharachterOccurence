@@ -1,0 +1,29 @@
+#include <iostream>
+
+using namespace std;
+// a3b3c2
+int main()
+{
+    string s = "aaabbbcc";
+    int count = 0;
+    bool flag = false;
+    for(int i = 0; i < s.size(); i++){
+        if(i == s.size() - 1 and !flag){
+            cout<<s[i]<<1;
+            break;
+        }
+        count = 1;
+        while(s[i + 1] == s[i]){
+            if(i + 1 == s.size() - 1){
+                cout<<s[i]<<++count;
+                flag = true;
+                break;
+            }
+            count++;
+            i++;
+        }
+        if(!flag)
+            cout<<s[i]<<count;
+    }
+    return 0;
+}
